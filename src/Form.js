@@ -5,10 +5,10 @@ class Form extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			Title: "",
-			Type: "",
-			_Date: new Date(),
-			Message: "",
+			title: "",
+			type: "",
+			date: new Date(),
+			message: "",
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -16,10 +16,11 @@ class Form extends React.Component {
 	}
 
 	handleChange(event) {
-		this.setState({ Title: event.target.Title });
-		this.setState({ Type: event.target.Type });
-		this.setState({ _Date: event.target._Date });
-		this.setState({ Message: event.target.Message });
+		let name = event.target.name;
+		let value = event.target.value;
+		this.setState({
+			[name]: value,
+		});
 	}
 
 	handleSubmit(event) {
@@ -32,10 +33,10 @@ class Form extends React.Component {
 						"Content-Type": "application/json",
 					},
 					body: JSON.stringify({
-						title: this.state.Title,
-						type: this.state.Type,
-						date: this.state._Date,
-						message: this.state.Message,
+						title: this.state.title,
+						type: this.state.type,
+						date: this.state.date,
+						message: this.state.message,
 					}),
 				});
 			} catch (error) {
@@ -51,25 +52,29 @@ class Form extends React.Component {
 			<body>
 				<form onSubmit={this.handleSubmit}>
 					<input
+						name="title"
 						type="text"
-						value={this.state.Title}
+						value={this.state.title}
 						placeholder="Title"
 						onChange={this.handleChange}
 					/>
 					<input
+						name="type"
 						type="text"
-						value={this.state.Type}
+						value={this.state.type}
 						placeholder="Type"
 						onChange={this.handleChange}
 					/>
 					<input
+						name="date"
 						type="date"
-						value={this.state._Date}
+						value={this.state.time}
 						onChange={this.handleChange}
 					/>
 					<input
+						name="message"
 						type="text"
-						value={this.state.Message}
+						value={this.state.message}
 						placeholder="Message"
 						onChange={this.handleChange}
 					/>
