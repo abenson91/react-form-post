@@ -13,6 +13,7 @@ class Form extends React.Component {
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.clearForm = this.clearForm.bind(this);
 	}
 
 	handleChange(event) {
@@ -38,6 +39,13 @@ class Form extends React.Component {
 						date: this.state.date,
 						message: this.state.message,
 					}),
+				}).then((response) => {
+					if (response !== 200) {
+						alert("Error, status code: " + response.status);
+					} else {
+						alert("success");
+						this.clearForm();
+					}
 				});
 			} catch (error) {
 				alert(error);
@@ -45,6 +53,15 @@ class Form extends React.Component {
 			}
 		})();
 		event.preventDefault();
+	}
+
+	clearForm() {
+		this.setState({
+			title: "",
+			type: "",
+			date: new Date(),
+			message: "",
+		});
 	}
 
 	render() {
